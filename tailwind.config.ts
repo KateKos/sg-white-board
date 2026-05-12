@@ -10,6 +10,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Nunito", "system-ui", "sans-serif"],
+        display: ["Archivo Black", "system-ui", "sans-serif"],
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -61,6 +65,12 @@ const config: Config = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        sticky: {
+          yellow: "hsl(var(--sticky-yellow))",
+          blue: "hsl(var(--sticky-blue))",
+          pink: "hsl(var(--sticky-pink))",
+          green: "hsl(var(--sticky-green))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -69,25 +79,22 @@ const config: Config = {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "note-appear": {
+          from: { opacity: "0", transform: "scale(0.8) rotate(-2deg)" },
+          to: { opacity: "1", transform: "scale(1) rotate(0deg)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "note-appear": "note-appear 0.3s ease-out",
       },
     },
   },
