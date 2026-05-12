@@ -7,12 +7,11 @@ import {
   addGroup,
   updateNote,
   updateGroup as updateGroupService,
-  type StickyNote,
+  type StickyNote as StickyNoteType,
   type Group,
   type StickyNoteColor,
 } from "@/services/boardService";
-import { StickyNoteComponent } from "./StickyNote";
-import { StickyNote } from "./StickyNote"; // Updated import
+import { StickyNote } from "./StickyNote";
 import { GroupContainer } from "./GroupContainer";
 import { Toolbar } from "./Toolbar";
 import { toPng } from "html-to-image";
@@ -30,7 +29,7 @@ export function BoardCanvas({
   boardSlug,
   onBoardNameChange,
 }: BoardCanvasProps) {
-  const [notes, setNotes] = useState<StickyNote[]>([]);
+  const [notes, setNotes] = useState<StickyNoteType[]>([]);
   const [groups, setGroups] = useState<Group[]>([]);
   const [draggingNoteId, setDraggingNoteId] = useState<string | null>(null);
   const [collaboratorCount, setCollaboratorCount] = useState(1);
@@ -74,11 +73,11 @@ export function BoardCanvas({
           if (payload.eventType === "INSERT") {
             setNotes((prev) => {
               if (prev.some((n) => n.id === payload.new.id)) return prev;
-              return [...prev, payload.new as StickyNote];
+              return [...prev, payload.new as StickyNoteType];
             });
           } else if (payload.eventType === "UPDATE") {
             setNotes((prev) =>
-              prev.map((n) => (n.id === payload.new.id ? (payload.new as StickyNote) : n))
+              prev.map((n) => (n.id === payload.new.id ? (payload.new as StickyNoteType) : n))
             );
           } else if (payload.eventType === "DELETE") {
             setNotes((prev) => prev.filter((n) => n.id !== payload.old.id));
@@ -161,7 +160,7 @@ export function BoardCanvas({
     setNotes((prev) => prev.map((n) => (n.id === id ? { ...n, x, y } : n)));
   }, []);
 
-  const handleNoteUpdate = useCallback((id: string, updates: Partial<StickyNote>) => {
+  const handleNoteUpdate = useCallback((id: string, updates: Partial<StickyNoteType>) => {
     setNotes((prev) => prev.map((n) => (n.id === id ? { ...n, ...updates } : n)));
   }, []);
 
@@ -293,7 +292,7 @@ export function BoardCanvas({
           ))}
           {notes.map((note) => (
             <div key={note.id} data-note>
-              <StickyNote // Updated component
+              <StickyNote
                 note={note}
                 onDragEnd={handleNoteDragEnd}
                 onUpdate={handleNoteUpdate}
@@ -313,8 +312,7 @@ export function BoardCanvas({
         <div className="absolute bottom-4 right-4 flex gap-2">
           <button
             onClick={() => {
-              const slug = boardSlug;
-              navigator.clipboard.writeText(`${window.location.origin}/board/${slug}`);
+              navigator.clipboard.writeText(`${window.location.origin}/board/${boardSlug}`);
             }}
             className="bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-semibold hover:bg-primary/90 transition-colors shadow-lg"
           >
