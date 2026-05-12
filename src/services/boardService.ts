@@ -66,7 +66,7 @@ export async function getBoardNotes(boardId: string): Promise<StickyNote[]> {
     .order("created_at", { ascending: true });
 
   if (error) throw error;
-  return data ?? [];
+  return (data ?? []) as StickyNote[];
 }
 
 export async function getBoardGroups(boardId: string): Promise<Group[]> {
@@ -100,7 +100,7 @@ export async function addNote(
     .single();
 
   if (error) throw error;
-  return data;
+  return data as StickyNote;
 }
 
 export async function updateNote(

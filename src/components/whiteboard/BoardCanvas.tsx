@@ -12,6 +12,7 @@ import {
   type StickyNoteColor,
 } from "@/services/boardService";
 import { StickyNoteComponent } from "./StickyNote";
+import { StickyNote } from "./StickyNote"; // Updated import
 import { GroupContainer } from "./GroupContainer";
 import { Toolbar } from "./Toolbar";
 import { toPng } from "html-to-image";
@@ -292,7 +293,7 @@ export function BoardCanvas({
           ))}
           {notes.map((note) => (
             <div key={note.id} data-note>
-              <StickyNoteComponent
+              <StickyNote // Updated component
                 note={note}
                 onDragEnd={handleNoteDragEnd}
                 onUpdate={handleNoteUpdate}
