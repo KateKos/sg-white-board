@@ -1,9 +1,12 @@
 ---
 title: Design System Setup
-status: todo
+status: in_progress
 priority: urgent
 type: feature
-tags: [design, css, tailwind]
+tags:
+- design
+- css
+- tailwind
 created_by: agent
 created_at: 2026-05-12
 position: 2
